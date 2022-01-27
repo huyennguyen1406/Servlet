@@ -3,23 +3,16 @@ package service;
 import model.Product;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class ProductService {
     private final static ArrayList<Product> products;
-    private final static ArrayList<String> brands;
+    private static final ArrayList<Product> productArrayList = new ArrayList<>();
 
     static {
         products = new ArrayList<>();
         products.add(new Product(1, "Iphone", 100000, 40, "Apple"));
         products.add(new Product(2, "Macbook", 200000, 20, "Apple"));
-        brands = new ArrayList<>();
-        brands.add("Apple");
-        brands.add("Samsung");
-        brands.add("Dell");
-    }
-
-    public ArrayList<String> getBrands() {
-        return brands;
     }
 
     public Product getProduct(int id) {
@@ -31,19 +24,31 @@ public class ProductService {
         return null;
     }
 
+    public ArrayList<Product> getProducts() {
+        return products;
+    }
+
     public void createProduct(Product product) {
         products.add(product);
+    }
+
+    public void updateProduct(int index, Product product) {
+        products.set(index, product);
     }
 
     public void deleteProduct(Product product) {
         products.remove(product);
     }
 
-    public void editProduct(Product product, int index) {
-        products.set(index, product);
+    public ArrayList<Product> sortProductListAsc() {
+        ArrayList<Product> sortIncreaseList = new ArrayList<>(products);
+        sortIncreaseList.sort(Comparator.comparingDouble(Product::getPrice));
+        return sortIncreaseList;
     }
 
-    public ArrayList<Product> getProducts() {
-        return products;
+    public ArrayList<Product> sortProductListDesc() {
+        ArrayList<Product> sortDecreaseList = new ArrayList<>(products);
+        sortDecreaseList.sort(Comparator.comparing(Product::getPrice).reversed());
+        return sortDecreaseList;
     }
 }
