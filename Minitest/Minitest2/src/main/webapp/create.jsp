@@ -43,6 +43,9 @@
             </c:forEach>
         </select>
     </label>
+    <label>Quantity :
+        <input <c:if test="${product != null}">value="${product.getQuantity()}"</c:if> type="text" name="quantity">
+    </label>
     <input type="submit" <c:if test="${product != null}">value="Edit"</c:if><c:if test="${product == null}">value="Create"</c:if> >
 </form>
 </body>
